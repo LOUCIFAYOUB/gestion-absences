@@ -184,7 +184,7 @@ export default function AbsencesPage() {
                 className="border rounded p-2"
                 required
               >
-                <option value="">Type d'absence</option>
+                <option value="">Type absence</option>
                 {types.map((t) => (
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
