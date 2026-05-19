@@ -13,6 +13,6 @@ declare module 'react-big-calendar' {
     [key: string]: any;
   }
   
-  export const Calendar: ComponentType<<CalendarProps>;
+  export const Calendar: ComponentType<CalendarProps>;
   export function dateFnsLocalizer(config: any): any;
 }
