@@ -2,8 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { useEffect, useState, useCallback } from "react";
+import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -32,6 +32,7 @@ export default function CalendrierPage() {
   const router = useRouter();
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -63,7 +64,7 @@ export default function CalendrierPage() {
     }
   }
 
-  function eventStyleGetter(event: any) {
+  const eventStyleGetter = useCallback((event: any) => {
     const color = event.resource?.type?.color || "#a8c82f";
     return {
       style: {
@@ -76,7 +77,11 @@ export default function CalendrierPage() {
         fontSize: "0.8rem",
       },
     };
-  }
+  }, []);
+
+  const onNavigate = useCallback((newDate: Date) => {
+    setDate(newDate);
+  }, []);
 
   if (status === "loading" || loading) {
     return (
@@ -120,6 +125,10 @@ export default function CalendrierPage() {
             style={{ height: 600 }}
             eventPropGetter={eventStyleGetter}
             culture="fr"
+            date={date}
+            onNavigate={onNavigate}
+            view={Views.MONTH}
+            views={[Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA]}
             messages={{
               today: "Aujourd'hui",
               previous: "Precedent",
