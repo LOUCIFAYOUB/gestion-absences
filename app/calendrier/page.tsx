@@ -49,7 +49,7 @@ export default function CalendrierPage() {
 
       const calendarEvents = absences.map((abs) => ({
         id: abs.id,
-        title: `${abs.employee.first_name} ${abs.employee.last_name} - ${abs.type.name}${abs.is_half_day ? " (½j)" : ""}`,
+        title: `${abs.employee.first_name} ${abs.employee.last_name} - ${abs.type.name}${abs.is_half_day ? " (1/2j)" : ""}`,
         start: new Date(abs.start_date),
         end: new Date(abs.end_date),
         resource: abs,
@@ -64,35 +64,46 @@ export default function CalendrierPage() {
   }
 
   function eventStyleGetter(event: any) {
-    const color = event.resource?.type?.color || "#3B82F6";
+    const color = event.resource?.type?.color || "#a8c82f";
     return {
       style: {
         backgroundColor: color,
         borderRadius: "4px",
         opacity: 0.9,
-        color: "white",
+        color: "#1a1a2e",
         border: "none",
+        fontWeight: "bold",
       },
     };
   }
 
   if (status === "loading" || loading) {
-    return <div className="p-8">Chargement...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#1a1a2e]">
+        <div className="text-[#9ba4a9] text-lg">Chargement...</div>
+      </div>
+    );
   }
 
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">📅 Calendrier des Absences</h1>
-          <a href="/dashboard" className="text-blue-600 hover:underline">← Retour au Dashboard</a>
+    <div className="min-h-screen bg-[#1a1a2e] text-[#e8e8e8]">
+      {/* Header */}
+      <header className="bg-[#16213e] border-b border-[#2a2a4a]">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-[#a8c82f]">Calendrier des Absences</h1>
+            <p className="text-[#9ba4a9] text-sm mt-1">Vue mensuelle et hebdomadaire</p>
+          </div>
+          <a href="/dashboard" className="text-[#a8c82f] hover:text-[#8fb526] transition">
+            Retour au Dashboard
+          </a>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto p-8">
-        <div className="bg-white p-6 rounded-xl shadow">
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        <div className="bg-[#16213e] border border-[#2a2a4a] p-6 rounded-xl">
           <Calendar
             localizer={localizer}
             events={events}
@@ -103,7 +114,7 @@ export default function CalendrierPage() {
             culture="fr"
             messages={{
               today: "Aujourd'hui",
-              previous: "Précédent",
+              previous: "Precedent",
               next: "Suivant",
               month: "Mois",
               week: "Semaine",
@@ -111,8 +122,8 @@ export default function CalendrierPage() {
               agenda: "Liste",
               date: "Date",
               time: "Heure",
-              event: "Événement",
-              noEventsInRange: "Aucune absence dans cette période",
+              event: "Evenement",
+              noEventsInRange: "Aucune absence dans cette periode",
             }}
           />
         </div>
