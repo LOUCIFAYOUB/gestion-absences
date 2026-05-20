@@ -137,8 +137,8 @@ export default function AbsencesPage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#1a1a2e]">
-        <div className="text-[#9ba4a9] text-lg">Chargement...</div>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+        <div style={{ color: '#9ba4a9' }}>Chargement...</div>
       </div>
     );
   }
@@ -146,104 +146,108 @@ export default function AbsencesPage() {
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] text-[#e8e8e8]">
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)', color: '#e2e8f0' }}>
       {/* Header */}
-      <header className="bg-[#16213e] border-b border-[#2a2a4a]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-[#a8c82f]">Gestion des Absences</h1>
-            <p className="text-[#9ba4a9] text-sm mt-1">Enregistrement et suivi</p>
+      <header style={{ background: 'rgba(30, 41, 59, 0.9)', borderBottom: '1px solid rgba(168, 200, 47, 0.2)', padding: '16px 24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #a8c82f 0%, #8fb526 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontWeight: 'bold', color: '#0f172a' }}>DG</span>
+            </div>
+            <div>
+              <h1 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#a8c82f', margin: 0 }}>Digital Garden</h1>
+            </div>
           </div>
-          <a href="/dashboard" className="text-[#a8c82f] hover:text-[#8fb526] transition">
-            Retour au Dashboard
-          </a>
+          <a href="/dashboard" style={{ color: '#a8c82f', textDecoration: 'none', fontSize: '0.9rem' }}>Retour au Dashboard</a>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-6">
+      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+          <div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#e2e8f0', marginBottom: '4px' }}>Gestion des Absences</h2>
+            <p style={{ color: '#9ba4a9', fontSize: '0.9rem' }}>Enregistrement et suivi</p>
+          </div>
           <button
             onClick={() => {
               setEditingId(null);
               setFormData({ employee_id: "", type_id: "", start_date: "", end_date: "", reason: "", is_half_day: false });
               setShowForm(!showForm);
             }}
-            className="bg-[#a8c82f] hover:bg-[#8fb526] text-[#1a1a2e] font-semibold px-4 py-2 rounded-lg transition"
+            className="btn-dg"
           >
             {showForm ? "Annuler" : "+ Enregistrer une absence"}
           </button>
         </div>
 
         {showForm && (
-          <form onSubmit={handleSubmit} className="bg-[#16213e] border border-[#2a2a4a] p-6 rounded-xl mb-6">
-            <h2 className="text-lg font-semibold text-[#a8c82f] mb-4">
+          <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '24px', marginBottom: '32px' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: '#a8c82f', marginBottom: '16px' }}>
               {editingId ? "Modifier l'absence" : "Nouvelle absence"}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select
-                value={formData.employee_id}
-                onChange={(e) => setFormData({ ...formData, employee_id: e.target.value })}
-                className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]"
-                required
-              >
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
+              <select value={formData.employee_id} onChange={(e) => setFormData({ ...formData, employee_id: e.target.value })} className="input-dg" required>
                 <option value="">Choisir un employe</option>
                 {employees.map((emp) => (
                   <option key={emp.id} value={emp.id}>{emp.first_name} {emp.last_name}</option>
                 ))}
               </select>
-              <select
-                value={formData.type_id}
-                onChange={(e) => setFormData({ ...formData, type_id: e.target.value })}
-                className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]"
-                required
-              >
-                <option value="">Type absence</option>
+              <select value={formData.type_id} onChange={(e) => setFormData({ ...formData, type_id: e.target.value })} className="input-dg" required>
+                <option value="">Type d'absence</option>
                 {types.map((t) => (
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
               </select>
-              <input type="date" value={formData.start_date} onChange={(e) => setFormData({ ...formData, start_date: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" required />
-              <input type="date" value={formData.end_date} onChange={(e) => setFormData({ ...formData, end_date: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" required />
-              <input placeholder="Motif (optionnel)" value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" />
-              <label className="flex items-center gap-2 text-[#9ba4a9]">
-                <input type="checkbox" checked={formData.is_half_day} onChange={(e) => setFormData({ ...formData, is_half_day: e.target.checked })} className="accent-[#a8c82f]" />
+              <input type="date" value={formData.start_date} onChange={(e) => setFormData({ ...formData, start_date: e.target.value })} className="input-dg" required />
+              <input type="date" value={formData.end_date} onChange={(e) => setFormData({ ...formData, end_date: e.target.value })} className="input-dg" required />
+              <input placeholder="Motif (optionnel)" value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} className="input-dg" />
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#9ba4a9' }}>
+                <input type="checkbox" checked={formData.is_half_day} onChange={(e) => setFormData({ ...formData, is_half_day: e.target.checked })} style={{ accentColor: '#a8c82f' }} />
                 Demi-journee
               </label>
             </div>
-            <button type="submit" className="mt-4 bg-[#a8c82f] hover:bg-[#8fb526] text-[#1a1a2e] font-semibold px-4 py-2 rounded-lg transition">
+            <button type="submit" className="btn-dg" style={{ marginTop: '16px' }}>
               {editingId ? "Mettre a jour" : "Enregistrer"}
             </button>
           </form>
         )}
 
-        <div className="bg-[#16213e] border border-[#2a2a4a] rounded-xl overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-[#1a1a2e]">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Employe</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Type</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Du</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Au</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Duree</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Motif</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Actions</th>
+        <div className="glass-card" style={{ overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr className="table-header">
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Employe</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Type</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Du</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Au</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Duree</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Motif</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {absences.length === 0 ? (
-                <tr><td colSpan={7} className="px-6 py-8 text-center text-[#9ba4a9]">Aucune absence enregistree.</td></tr>
+                <tr>
+                  <td colSpan={7} style={{ padding: '32px', textAlign: 'center', color: '#9ba4a9' }}>
+                    Aucune absence enregistree
+                  </td>
+                </tr>
               ) : (
                 absences.map((abs) => (
-                  <tr key={abs.id} className="border-t border-[#2a2a4a]">
-                    <td className="px-6 py-4 text-[#e8e8e8]">{abs.employee.first_name} {abs.employee.last_name}</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 rounded text-sm text-[#1a1a2e] font-semibold" style={{ backgroundColor: abs.type.color }}>{abs.type.name}</span></td>
-                    <td className="px-6 py-4 text-[#9ba4a9]">{formatDate(abs.start_date)}</td>
-                    <td className="px-6 py-4 text-[#9ba4a9]">{formatDate(abs.end_date)}</td>
-                    <td className="px-6 py-4 text-[#a8c82f] font-semibold">{getDuration(abs.start_date, abs.end_date, abs.is_half_day)} j</td>
-                    <td className="px-6 py-4 text-[#9ba4a9]">{abs.reason || "-"}</td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleEdit(abs)} className="text-[#a8c82f] hover:text-[#8fb526] mr-3 transition">Modifier</button>
-                      <button onClick={() => handleDelete(abs.id)} className="text-[#e74c3c] hover:text-[#c0392b] transition">Supprimer</button>
+                  <tr key={abs.id} style={{ borderTop: '1px solid rgba(168, 200, 47, 0.1)' }}>
+                    <td style={{ padding: '12px 16px', color: '#e2e8f0' }}>{abs.employee.first_name} {abs.employee.last_name}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <span style={{ background: abs.type.color, color: '#0f172a', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '600' }}>
+                        {abs.type.name}
+                      </span>
+                    </td>
+                    <td style={{ padding: '12px 16px', color: '#9ba4a9' }}>{formatDate(abs.start_date)}</td>
+                    <td style={{ padding: '12px 16px', color: '#9ba4a9' }}>{formatDate(abs.end_date)}</td>
+                    <td style={{ padding: '12px 16px', color: '#a8c82f', fontWeight: 'bold' }}>{getDuration(abs.start_date, abs.end_date, abs.is_half_day)} j</td>
+                    <td style={{ padding: '12px 16px', color: '#9ba4a9' }}>{abs.reason || "-"}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <button onClick={() => handleEdit(abs)} style={{ color: '#a8c82f', background: 'none', border: 'none', cursor: 'pointer', marginRight: '12px', fontSize: '0.85rem' }}>Modifier</button>
+                      <button onClick={() => handleDelete(abs.id)} style={{ color: '#e74c3c', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem' }}>Supprimer</button>
                     </td>
                   </tr>
                 ))

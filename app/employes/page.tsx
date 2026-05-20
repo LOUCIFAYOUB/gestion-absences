@@ -100,8 +100,8 @@ export default function EmployesPage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
-        <div className="text-slate-400 text-lg">Chargement...</div>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+        <div style={{ color: '#9ba4a9' }}>Chargement...</div>
       </div>
     );
   }
@@ -109,32 +109,27 @@ export default function EmployesPage() {
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white relative overflow-hidden">
-      {/* Effets de fond */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#a8c82f]/5 rounded-full blur-3xl" />
-      
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)', color: '#e2e8f0' }}>
       {/* Header */}
-      <header className="relative z-10 glass-card border-b border-[#a8c82f]/20">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#a8c82f] to-[#8fb526] flex items-center justify-center shadow-lg shadow-[#a8c82f]/20">
-              <span className="text-lg font-bold text-slate-900">DG</span>
+      <header style={{ background: 'rgba(30, 41, 59, 0.9)', borderBottom: '1px solid rgba(168, 200, 47, 0.2)', padding: '16px 24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #a8c82f 0%, #8fb526 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontWeight: 'bold', color: '#0f172a' }}>DG</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gradient">Digital Garden</h1>
+              <h1 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#a8c82f', margin: 0 }}>Digital Garden</h1>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <a href="/dashboard" className="link-dg text-sm">Retour au Dashboard</a>
-          </div>
+          <a href="/dashboard" style={{ color: '#a8c82f', textDecoration: 'none', fontSize: '0.9rem' }}>Retour au Dashboard</a>
         </div>
       </header>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-        <div className="flex justify-between items-center mb-8">
+      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <div>
-            <h2 className="text-2xl font-bold text-white">Gestion des Employes</h2>
-            <p className="text-slate-400 text-sm mt-1">Liste et gestion complete</p>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#e2e8f0', marginBottom: '4px' }}>Gestion des Employes</h2>
+            <p style={{ color: '#9ba4a9', fontSize: '0.9rem' }}>Liste et gestion complete</p>
           </div>
           <button
             onClick={() => {
@@ -142,66 +137,66 @@ export default function EmployesPage() {
               setFormData({ first_name: "", last_name: "", email: "", position: "", hire_date: "" });
               setShowForm(!showForm);
             }}
-            className="btn-dg px-6 py-3 rounded-lg"
+            className="btn-dg"
           >
             {showForm ? "Annuler" : "+ Ajouter un employe"}
           </button>
         </div>
 
         {showForm && (
-          <form onSubmit={handleSubmit} className="glass-card rounded-xl p-6 mb-8">
-            <h3 className="text-lg font-semibold text-[#a8c82f] mb-4">
+          <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '24px', marginBottom: '32px' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: '#a8c82f', marginBottom: '16px' }}>
               {editingId ? "Modifier l'employe" : "Nouvel employe"}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input placeholder="Prenom" value={formData.first_name} onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} className="input-dg rounded-lg p-3" required />
-              <input placeholder="Nom" value={formData.last_name} onChange={(e) => setFormData({ ...formData, last_name: e.target.value })} className="input-dg rounded-lg p-3" required />
-              <input placeholder="Email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="input-dg rounded-lg p-3" required />
-              <input placeholder="Poste" value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} className="input-dg rounded-lg p-3" required />
-              <input type="date" value={formData.hire_date} onChange={(e) => setFormData({ ...formData, hire_date: e.target.value })} className="input-dg rounded-lg p-3" required />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
+              <input placeholder="Prenom" value={formData.first_name} onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} className="input-dg" required />
+              <input placeholder="Nom" value={formData.last_name} onChange={(e) => setFormData({ ...formData, last_name: e.target.value })} className="input-dg" required />
+              <input placeholder="Email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="input-dg" required />
+              <input placeholder="Poste" value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} className="input-dg" required />
+              <input type="date" value={formData.hire_date} onChange={(e) => setFormData({ ...formData, hire_date: e.target.value })} className="input-dg" required />
             </div>
-            <button type="submit" className="btn-dg mt-4 px-6 py-2 rounded-lg">
+            <button type="submit" className="btn-dg" style={{ marginTop: '16px' }}>
               {editingId ? "Mettre a jour" : "Enregistrer"}
             </button>
           </form>
         )}
 
-        <div className="glass-card rounded-xl overflow-hidden">
-          <table className="w-full">
+        <div className="glass-card" style={{ overflow: 'hidden' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr className="table-header">
-                <th className="px-6 py-3 text-left">Nom</th>
-                <th className="px-6 py-3 text-left">Email</th>
-                <th className="px-6 py-3 text-left">Poste</th>
-                <th className="px-6 py-3 text-left">Solde Conges</th>
-                <th className="px-6 py-3 text-left">Statut</th>
-                <th className="px-6 py-3 text-left">Actions</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Nom</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Email</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Poste</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Solde Conges</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Statut</th>
+                <th style={{ padding: '12px 16px', textAlign: 'left' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {employees.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-slate-400">
+                  <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#9ba4a9' }}>
                     Aucun employe enregistre
                   </td>
                 </tr>
               ) : (
                 employees.map((emp) => (
-                  <tr key={emp.id} className="border-t border-[#a8c82f]/10 hover:bg-[#a8c82f]/5 transition">
-                    <td className="px-6 py-4 text-white font-medium">{emp.first_name} {emp.last_name}</td>
-                    <td className="px-6 py-4 text-slate-400">{emp.email}</td>
-                    <td className="px-6 py-4 text-slate-400">{emp.position}</td>
-                    <td className="px-6 py-4 text-[#a8c82f] font-bold">{emp.leave_balance} j</td>
-                    <td className="px-6 py-4">
+                  <tr key={emp.id} style={{ borderTop: '1px solid rgba(168, 200, 47, 0.1)' }}>
+                    <td style={{ padding: '12px 16px', color: '#e2e8f0', fontWeight: '500' }}>{emp.first_name} {emp.last_name}</td>
+                    <td style={{ padding: '12px 16px', color: '#9ba4a9' }}>{emp.email}</td>
+                    <td style={{ padding: '12px 16px', color: '#9ba4a9' }}>{emp.position}</td>
+                    <td style={{ padding: '12px 16px', color: '#a8c82f', fontWeight: 'bold' }}>{emp.leave_balance} j</td>
+                    <td style={{ padding: '12px 16px' }}>
                       {emp.is_active ? (
-                        <span className="badge-green px-3 py-1 rounded-full text-xs">Actif</span>
+                        <span className="badge-green">Actif</span>
                       ) : (
-                        <span className="badge-red px-3 py-1 rounded-full text-xs">Inactif</span>
+                        <span className="badge-red">Inactif</span>
                       )}
                     </td>
-                    <td className="px-6 py-4">
-                      <button onClick={() => handleEdit(emp)} className="text-[#a8c82f] hover:text-[#c4e052] mr-4 transition text-sm">Modifier</button>
-                      <button onClick={() => handleDelete(emp.id)} className="text-red-400 hover:text-red-300 transition text-sm">Supprimer</button>
+                    <td style={{ padding: '12px 16px' }}>
+                      <button onClick={() => handleEdit(emp)} style={{ color: '#a8c82f', background: 'none', border: 'none', cursor: 'pointer', marginRight: '12px', fontSize: '0.85rem' }}>Modifier</button>
+                      <button onClick={() => handleDelete(emp.id)} style={{ color: '#e74c3c', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem' }}>Supprimer</button>
                     </td>
                   </tr>
                 ))
