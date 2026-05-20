@@ -29,52 +29,63 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a1a2e]">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#a8c82f] mb-2">Gestion des Absences</h1>
-          <p className="text-[#9ba4a9]">Digital Garden</p>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Fond avec dégradé et formes */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#a8c82f]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#9ba4a9]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+      
+      <div className="relative z-10 w-full max-w-md px-6">
+        {/* Logo et titre */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#a8c82f] to-[#8fb526] mb-4 shadow-lg shadow-[#a8c82f]/20">
+            <span className="text-2xl font-bold text-slate-900">DG</span>
+          </div>
+          <h1 className="text-3xl font-bold text-gradient mb-2">Digital Garden</h1>
+          <p className="text-slate-400">Gestion des Absences</p>
         </div>
         
-        <form onSubmit={handleSubmit} className="bg-[#16213e] border border-[#2a2a4a] p-8 rounded-xl">
-          <h2 className="text-xl font-semibold text-[#e8e8e8] mb-6 text-center">Connexion Manager</h2>
+        <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8">
+          <h2 className="text-xl font-semibold text-white mb-6 text-center">Connexion</h2>
           
           {error && (
-            <p className="text-[#e74c3c] mb-4 text-sm text-center bg-[#e74c3c]/10 p-2 rounded">
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm text-center">
               {error}
-            </p>
+            </div>
           )}
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-[#9ba4a9] mb-2">
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-slate-300 mb-2">
               Nom d'utilisateur
             </label>
             <input
               name="username"
               type="text"
               required
-              className="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f] focus:ring-1 focus:ring-[#a8c82f]"
+              className="input-dg w-full rounded-lg px-4 py-3"
+              placeholder="Entrez votre nom d'utilisateur"
             />
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-[#9ba4a9] mb-2">
+            <label className="block text-sm font-medium text-slate-300 mb-2">
               Mot de passe
             </label>
             <input
               name="password"
               type="password"
               required
-              className="w-full bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f] focus:ring-1 focus:ring-[#a8c82f]"
+              className="input-dg w-full rounded-lg px-4 py-3"
+              placeholder="Entrez votre mot de passe"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#a8c82f] hover:bg-[#8fb526] text-[#1a1a2e] font-semibold py-3 rounded-lg transition disabled:opacity-50"
+            className="btn-dg w-full py-3 rounded-lg font-semibold"
           >
-            {loading ? "Connexion..." : "Se connecter"}
+            {loading ? "Connexion en cours..." : "Se connecter"}
           </button>
         </form>
       </div>
