@@ -1,121 +1,102 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --dg-green: #a8c82f;
-  --dg-green-dark: #8fb526;
-  --dg-green-light: #c4e052;
-  --dg-gray: #9ba4a9;
-  --dg-gray-light: #b8c0c4;
-  --dg-gray-dark: #7a8287;
-  --bg-dark: #0f172a;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --border-glass: rgba(168, 200, 47, 0.2);
+@theme {
+  --color-dg-green: #a8c82f;
+  --color-dg-green-dark: #8fb526;
+  --color-dg-green-light: #c4e052;
+  --color-dg-gray: #9ba4a9;
+  --color-dg-gray-light: #b8c0c4;
+  --color-dg-gray-dark: #7a8287;
+  --color-bg-dark: #0f172a;
+  --color-bg-card: #1e293b;
+  --color-border-glass: rgba(168, 200, 47, 0.2);
 }
 
 body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  background-color: #0f172a;
   color: #e2e8f0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Effet glassmorphism pour les cartes */
 .glass-card {
-  background: rgba(30, 41, 59, 0.6);
+  background: rgba(30, 41, 59, 0.8);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(168, 200, 47, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
 }
 
-/* Dégradé vert subtil */
-.gradient-green {
-  background: linear-gradient(135deg, rgba(168, 200, 47, 0.1) 0%, rgba(15, 23, 42, 0) 100%);
-}
-
-/* Bouton moderne */
 .btn-dg {
   background: linear-gradient(135deg, #a8c82f 0%, #8fb526 100%);
   color: #0f172a;
   font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(168, 200, 47, 0.3);
 }
 
 .btn-dg:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(168, 200, 47, 0.4);
+  box-shadow: 0 4px 15px rgba(168, 200, 47, 0.3);
 }
 
-/* Input moderne */
 .input-dg {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(168, 200, 47, 0.2);
   color: #e2e8f0;
-  transition: all 0.3s ease;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .input-dg:focus {
   border-color: #a8c82f;
-  box-shadow: 0 0 0 3px rgba(168, 200, 47, 0.1);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(168, 200, 47, 0.1);
 }
 
-/* Texte avec dégradé */
 .text-gradient {
   background: linear-gradient(135deg, #a8c82f 0%, #c4e052 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-/* Lien avec effet */
 .link-dg {
   color: #a8c82f;
-  transition: all 0.3s ease;
-  position: relative;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-.link-dg::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  background: linear-gradient(90deg, #a8c82f, #c4e052);
-  transition: width 0.3s ease;
+.link-dg:hover {
+  color: #c4e052;
 }
 
-.link-dg:hover::after {
-  width: 100%;
-}
-
-/* Badge */
 .badge-green {
   background: rgba(168, 200, 47, 0.15);
   color: #a8c82f;
   border: 1px solid rgba(168, 200, 47, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
 }
 
 .badge-red {
   background: rgba(231, 76, 60, 0.15);
   color: #e74c3c;
   border: 1px solid rgba(231, 76, 60, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
 }
 
-/* Table moderne */
 .table-header {
   background: rgba(168, 200, 47, 0.08);
   color: #a8c82f;
   font-weight: 600;
   text-transform: uppercase;
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
-  font-size: 0.75rem;
 }
 
-/* Scrollbar personnalisée */
 ::-webkit-scrollbar {
   width: 8px;
 }

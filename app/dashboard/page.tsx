@@ -55,8 +55,8 @@ export default function DashboardPage() {
 
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700">
-        <div className="text-slate-400 text-lg">Chargement...</div>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+        <div style={{ color: '#9ba4a9' }}>Chargement...</div>
       </div>
     );
   }
@@ -64,65 +64,33 @@ export default function DashboardPage() {
   if (!session) return null;
 
   const menuItems = [
-    { 
-      href: "/employes", 
-      title: "Employes",
-      desc: "Gestion complete",
-      icon: "M",
-      gradient: "from-[#a8c82f] to-[#8fb526]",
-      shadow: "shadow-[#a8c82f]/20"
-    },
-    { 
-      href: "/absences", 
-      title: "Absences",
-      desc: "Suivi et enregistrement",
-      icon: "A",
-      gradient: "from-[#9ba4a9] to-[#7a8287]",
-      shadow: "shadow-[#9ba4a9]/20"
-    },
-    { 
-      href: "/calendrier", 
-      title: "Calendrier",
-      desc: "Vue mensuelle",
-      icon: "C",
-      gradient: "from-[#a8c82f] to-[#c4e052]",
-      shadow: "shadow-[#a8c82f]/20"
-    },
-    { 
-      href: "/stats", 
-      title: "Statistiques",
-      desc: "Analyses et rapports",
-      icon: "S",
-      gradient: "from-[#9ba4a9] to-[#b8c0c4]",
-      shadow: "shadow-[#9ba4a9]/20"
-    },
+    { href: "/employes", title: "Employes", desc: "Gestion complete", color: "#a8c82f" },
+    { href: "/absences", title: "Absences", desc: "Suivi et enregistrement", color: "#9ba4a9" },
+    { href: "/calendrier", title: "Calendrier", desc: "Vue mensuelle", color: "#a8c82f" },
+    { href: "/stats", title: "Statistiques", desc: "Analyses et rapports", color: "#9ba4a9" },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white relative overflow-hidden">
-      {/* Effets de fond */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#a8c82f]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#9ba4a9]/5 rounded-full blur-3xl" />
-
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)', color: '#e2e8f0' }}>
       {/* Header */}
-      <header className="relative z-10 glass-card border-b border-[#a8c82f]/20">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#a8c82f] to-[#8fb526] flex items-center justify-center shadow-lg shadow-[#a8c82f]/20">
-              <span className="text-lg font-bold text-slate-900">DG</span>
+      <header style={{ background: 'rgba(30, 41, 59, 0.9)', borderBottom: '1px solid rgba(168, 200, 47, 0.2)', padding: '16px 24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #a8c82f 0%, #8fb526 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontWeight: 'bold', color: '#0f172a' }}>DG</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gradient">Digital Garden</h1>
-              <p className="text-xs text-slate-400">Gestion des Absences</p>
+              <h1 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#a8c82f', margin: 0 }}>Digital Garden</h1>
+              <p style={{ fontSize: '0.75rem', color: '#9ba4a9', margin: 0 }}>Gestion des Absences</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-slate-300 text-sm">
-              <span className="text-[#a8c82f] font-semibold">{session.user?.name}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <span style={{ color: '#9ba4a9', fontSize: '0.9rem' }}>
+              <strong style={{ color: '#e2e8f0' }}>{session.user?.name}</strong>
             </span>
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-4 py-2 rounded-lg transition text-sm"
+              style={{ background: 'rgba(231, 76, 60, 0.2)', color: '#e74c3c', border: '1px solid rgba(231, 76, 60, 0.3)', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.85rem' }}
             >
               Deconnexion
             </button>
@@ -131,79 +99,63 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-        {/* Titre de section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-white mb-1">Tableau de bord</h2>
-          <p className="text-slate-400">Vue d'ensemble de votre activite</p>
+      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
+        <div style={{ marginBottom: '32px' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#e2e8f0', marginBottom: '4px' }}>Tableau de bord</h2>
+          <p style={{ color: '#9ba4a9', fontSize: '0.9rem' }}>Vue d'ensemble de votre activite</p>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-          <div className="glass-card rounded-xl p-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-[#a8c82f]/10 rounded-full blur-2xl group-hover:bg-[#a8c82f]/20 transition" />
-            <div className="relative z-10">
-              <div className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">Employes</div>
-              <div className="text-3xl font-bold text-white">{stats.totalEmployees}</div>
-              <div className="text-[#a8c82f] text-sm mt-1">Total enregistres</div>
-            </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+          <div className="glass-card" style={{ padding: '24px' }}>
+            <div style={{ color: '#9ba4a9', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Employes</div>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#e2e8f0' }}>{stats.totalEmployees}</div>
+            <div style={{ color: '#a8c82f', fontSize: '0.8rem', marginTop: '4px' }}>Total enregistres</div>
           </div>
-
-          <div className="glass-card rounded-xl p-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-[#9ba4a9]/10 rounded-full blur-2xl group-hover:bg-[#9ba4a9]/20 transition" />
-            <div className="relative z-10">
-              <div className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">Absences</div>
-              <div className="text-3xl font-bold text-white">{stats.totalAbsences}</div>
-              <div className="text-[#9ba4a9] text-sm mt-1">Total enregistrees</div>
-            </div>
+          <div className="glass-card" style={{ padding: '24px' }}>
+            <div style={{ color: '#9ba4a9', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Absences</div>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#e2e8f0' }}>{stats.totalAbsences}</div>
+            <div style={{ color: '#9ba4a9', fontSize: '0.8rem', marginTop: '4px' }}>Total enregistrees</div>
           </div>
-
-          <div className="glass-card rounded-xl p-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-[#a8c82f]/10 rounded-full blur-2xl group-hover:bg-[#a8c82f]/20 transition" />
-            <div className="relative z-10">
-              <div className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">Actifs</div>
-              <div className="text-3xl font-bold text-[#a8c82f]">{stats.activeEmployees}</div>
-              <div className="text-slate-400 text-sm mt-1">Employes presents</div>
-            </div>
+          <div className="glass-card" style={{ padding: '24px' }}>
+            <div style={{ color: '#9ba4a9', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Actifs</div>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#a8c82f' }}>{stats.activeEmployees}</div>
+            <div style={{ color: '#9ba4a9', fontSize: '0.8rem', marginTop: '4px' }}>Employes presents</div>
           </div>
-
-          <div className="glass-card rounded-xl p-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-[#9ba4a9]/10 rounded-full blur-2xl group-hover:bg-[#9ba4a9]/20 transition" />
-            <div className="relative z-10">
-              <div className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">En Cours</div>
-              <div className="text-3xl font-bold text-[#9ba4a9]">{stats.pendingAbsences}</div>
-              <div className="text-slate-400 text-sm mt-1">Absences actives</div>
-            </div>
+          <div className="glass-card" style={{ padding: '24px' }}>
+            <div style={{ color: '#9ba4a9', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>En Cours</div>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#9ba4a9' }}>{stats.pendingAbsences}</div>
+            <div style={{ color: '#9ba4a9', fontSize: '0.8rem', marginTop: '4px' }}>Absences actives</div>
           </div>
         </div>
 
-        {/* Navigation Menu - Design moderne */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Navigation</h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Navigation */}
+        <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: '#e2e8f0', marginBottom: '20px' }}>Navigation</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
           {menuItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-105"
+              style={{ 
+                background: `linear-gradient(135deg, ${item.color}dd 0%, ${item.color}99 100%)`,
+                padding: '24px',
+                borderRadius: '12px',
+                textDecoration: 'none',
+                color: '#0f172a',
+                transition: 'transform 0.3s, box-shadow 0.3s',
+                display: 'block'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = `0 10px 30px ${item.color}40`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-90`} />
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity`} />
-              
-              <div className="relative p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white">{item.icon}</span>
-                  </div>
-                  <svg className="w-5 h-5 text-white/60 group-hover:text-white transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-                <h4 className="text-lg font-bold text-white mb-1">{item.title}</h4>
-                <p className="text-sm text-white/70">{item.desc}</p>
-              </div>
+              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '4px' }}>{item.title}</div>
+              <div style={{ fontSize: '0.85rem', opacity: 0.8 }}>{item.desc}</div>
             </a>
           ))}
         </div>

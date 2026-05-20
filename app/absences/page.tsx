@@ -91,6 +91,9 @@ export default function AbsencesPage() {
         setEditingId(null);
         setFormData({ employee_id: "", type_id: "", start_date: "", end_date: "", reason: "", is_half_day: false });
         fetchData();
+      } else {
+        const error = await res.json();
+        alert(error.error || "Erreur lors de l'enregistrement");
       }
     } catch (error) {
       console.error("Erreur:", error);
@@ -98,7 +101,7 @@ export default function AbsencesPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm("Êtes-vous sûr de vouloir supprimer cette absence ?")) return;
+    if (!confirm("Etes-vous sur de vouloir supprimer cette absence ?")) return;
     
     try {
       const res = await fetch(`/api/absences/${id}`, { method: "DELETE" });
@@ -133,21 +136,31 @@ export default function AbsencesPage() {
   }
 
   if (status === "loading" || loading) {
-    return <div className="p-8">Chargement...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#1a1a2e]">
+        <div className="text-[#9ba4a9] text-lg">Chargement...</div>
+      </div>
+    );
   }
 
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">📅 Gestion des Absences</h1>
-          <a href="/dashboard" className="text-blue-600 hover:underline">← Retour au Dashboard</a>
+    <div className="min-h-screen bg-[#1a1a2e] text-[#e8e8e8]">
+      {/* Header */}
+      <header className="bg-[#16213e] border-b border-[#2a2a4a]">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-[#a8c82f]">Gestion des Absences</h1>
+            <p className="text-[#9ba4a9] text-sm mt-1">Enregistrement et suivi</p>
+          </div>
+          <a href="/dashboard" className="text-[#a8c82f] hover:text-[#8fb526] transition">
+            Retour au Dashboard
+          </a>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto p-8">
+      <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-6">
           <button
             onClick={() => {
@@ -155,25 +168,25 @@ export default function AbsencesPage() {
               setFormData({ employee_id: "", type_id: "", start_date: "", end_date: "", reason: "", is_half_day: false });
               setShowForm(!showForm);
             }}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-[#a8c82f] hover:bg-[#8fb526] text-[#1a1a2e] font-semibold px-4 py-2 rounded-lg transition"
           >
             {showForm ? "Annuler" : "+ Enregistrer une absence"}
           </button>
         </div>
 
         {showForm && (
-          <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow mb-6">
-            <h2 className="text-lg font-semibold mb-4">
+          <form onSubmit={handleSubmit} className="bg-[#16213e] border border-[#2a2a4a] p-6 rounded-xl mb-6">
+            <h2 className="text-lg font-semibold text-[#a8c82f] mb-4">
               {editingId ? "Modifier l'absence" : "Nouvelle absence"}
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <select
                 value={formData.employee_id}
                 onChange={(e) => setFormData({ ...formData, employee_id: e.target.value })}
-                className="border rounded p-2"
+                className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]"
                 required
               >
-                <option value="">Choisir un employé</option>
+                <option value="">Choisir un employe</option>
                 {employees.map((emp) => (
                   <option key={emp.id} value={emp.id}>{emp.first_name} {emp.last_name}</option>
                 ))}
@@ -181,7 +194,7 @@ export default function AbsencesPage() {
               <select
                 value={formData.type_id}
                 onChange={(e) => setFormData({ ...formData, type_id: e.target.value })}
-                className="border rounded p-2"
+                className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]"
                 required
               >
                 <option value="">Type absence</option>
@@ -189,48 +202,48 @@ export default function AbsencesPage() {
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
               </select>
-              <input type="date" value={formData.start_date} onChange={(e) => setFormData({ ...formData, start_date: e.target.value })} className="border rounded p-2" required />
-              <input type="date" value={formData.end_date} onChange={(e) => setFormData({ ...formData, end_date: e.target.value })} className="border rounded p-2" required />
-              <input placeholder="Motif (optionnel)" value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} className="border rounded p-2" />
-              <label className="flex items-center gap-2">
-                <input type="checkbox" checked={formData.is_half_day} onChange={(e) => setFormData({ ...formData, is_half_day: e.target.checked })} />
-                Demi-journée
+              <input type="date" value={formData.start_date} onChange={(e) => setFormData({ ...formData, start_date: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" required />
+              <input type="date" value={formData.end_date} onChange={(e) => setFormData({ ...formData, end_date: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" required />
+              <input placeholder="Motif (optionnel)" value={formData.reason} onChange={(e) => setFormData({ ...formData, reason: e.target.value })} className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-lg p-3 text-[#e8e8e8] focus:outline-none focus:border-[#a8c82f]" />
+              <label className="flex items-center gap-2 text-[#9ba4a9]">
+                <input type="checkbox" checked={formData.is_half_day} onChange={(e) => setFormData({ ...formData, is_half_day: e.target.checked })} className="accent-[#a8c82f]" />
+                Demi-journee
               </label>
             </div>
-            <button type="submit" className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-              {editingId ? "Mettre à jour" : "Enregistrer"}
+            <button type="submit" className="mt-4 bg-[#a8c82f] hover:bg-[#8fb526] text-[#1a1a2e] font-semibold px-4 py-2 rounded-lg transition">
+              {editingId ? "Mettre a jour" : "Enregistrer"}
             </button>
           </form>
         )}
 
-        <div className="bg-white rounded-xl shadow overflow-hidden">
+        <div className="bg-[#16213e] border border-[#2a2a4a] rounded-xl overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-[#1a1a2e]">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Employé</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Type</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Du</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Au</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Durée</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Motif</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Employe</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Type</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Du</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Au</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Duree</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Motif</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-[#a8c82f]">Actions</th>
               </tr>
             </thead>
             <tbody>
               {absences.length === 0 ? (
-                <tr><td colSpan={7} className="px-6 py-8 text-center text-gray-500">Aucune absence enregistrée.</td></tr>
+                <tr><td colSpan={7} className="px-6 py-8 text-center text-[#9ba4a9]">Aucune absence enregistree.</td></tr>
               ) : (
                 absences.map((abs) => (
-                  <tr key={abs.id} className="border-t">
-                    <td className="px-6 py-4">{abs.employee.first_name} {abs.employee.last_name}</td>
-                    <td className="px-6 py-4"><span className="px-2 py-1 rounded text-sm text-white" style={{ backgroundColor: abs.type.color }}>{abs.type.name}</span></td>
-                    <td className="px-6 py-4">{formatDate(abs.start_date)}</td>
-                    <td className="px-6 py-4">{formatDate(abs.end_date)}</td>
-                    <td className="px-6 py-4">{getDuration(abs.start_date, abs.end_date, abs.is_half_day)} j</td>
-                    <td className="px-6 py-4">{abs.reason || "-"}</td>
+                  <tr key={abs.id} className="border-t border-[#2a2a4a]">
+                    <td className="px-6 py-4 text-[#e8e8e8]">{abs.employee.first_name} {abs.employee.last_name}</td>
+                    <td className="px-6 py-4"><span className="px-2 py-1 rounded text-sm text-[#1a1a2e] font-semibold" style={{ backgroundColor: abs.type.color }}>{abs.type.name}</span></td>
+                    <td className="px-6 py-4 text-[#9ba4a9]">{formatDate(abs.start_date)}</td>
+                    <td className="px-6 py-4 text-[#9ba4a9]">{formatDate(abs.end_date)}</td>
+                    <td className="px-6 py-4 text-[#a8c82f] font-semibold">{getDuration(abs.start_date, abs.end_date, abs.is_half_day)} j</td>
+                    <td className="px-6 py-4 text-[#9ba4a9]">{abs.reason || "-"}</td>
                     <td className="px-6 py-4">
-                      <button onClick={() => handleEdit(abs)} className="text-blue-600 hover:text-blue-800 mr-3">✏️ Modifier</button>
-                      <button onClick={() => handleDelete(abs.id)} className="text-red-600 hover:text-red-800">🗑️ Supprimer</button>
+                      <button onClick={() => handleEdit(abs)} className="text-[#a8c82f] hover:text-[#8fb526] mr-3 transition">Modifier</button>
+                      <button onClick={() => handleDelete(abs.id)} className="text-[#e74c3c] hover:text-[#c0392b] transition">Supprimer</button>
                     </td>
                   </tr>
                 ))
