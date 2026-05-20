@@ -68,19 +68,20 @@ export default function CalendrierPage() {
     return {
       style: {
         backgroundColor: color,
-        borderRadius: "4px",
+        borderRadius: "6px",
         opacity: 0.9,
-        color: "#1a1a2e",
+        color: "#0f172a",
         border: "none",
-        fontWeight: "bold",
+        fontWeight: "600",
+        fontSize: "0.8rem",
       },
     };
   }
 
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#1a1a2e]">
-        <div className="text-[#9ba4a9] text-lg">Chargement...</div>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+        <div style={{ color: '#9ba4a9' }}>Chargement...</div>
       </div>
     );
   }
@@ -88,22 +89,29 @@ export default function CalendrierPage() {
   if (!session) return null;
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] text-[#e8e8e8]">
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)', color: '#e2e8f0' }}>
       {/* Header */}
-      <header className="bg-[#16213e] border-b border-[#2a2a4a]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-[#a8c82f]">Calendrier des Absences</h1>
-            <p className="text-[#9ba4a9] text-sm mt-1">Vue mensuelle et hebdomadaire</p>
+      <header style={{ background: 'rgba(30, 41, 59, 0.9)', borderBottom: '1px solid rgba(168, 200, 47, 0.2)', padding: '16px 24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #a8c82f 0%, #8fb526 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontWeight: 'bold', color: '#0f172a' }}>DG</span>
+            </div>
+            <div>
+              <h1 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#a8c82f', margin: 0 }}>Digital Garden</h1>
+            </div>
           </div>
-          <a href="/dashboard" className="text-[#a8c82f] hover:text-[#8fb526] transition">
-            Retour au Dashboard
-          </a>
+          <a href="/dashboard" style={{ color: '#a8c82f', textDecoration: 'none', fontSize: '0.9rem' }}>Retour au Dashboard</a>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-[#16213e] border border-[#2a2a4a] p-6 rounded-xl">
+      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#e2e8f0', marginBottom: '4px' }}>Calendrier des Absences</h2>
+          <p style={{ color: '#9ba4a9', fontSize: '0.9rem' }}>Vue mensuelle et hebdomadaire</p>
+        </div>
+
+        <div className="glass-card" style={{ padding: '24px' }}>
           <Calendar
             localizer={localizer}
             events={events}
